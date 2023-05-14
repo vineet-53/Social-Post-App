@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/css/post.css" />
+<div class="post-container">
+  <div class="wrapper">
+    <div class="post-form-container">
+      <h2>Create Post</h2>
+      <form
+        action="/posts/create"
+        style="padding-inline-start: 0.4rem"
+        method="post"
+        class="flex flex-col"
+        data-create-post
+      >
+        <textarea
+          name="content"
+          id="post"
+          cols="20"
+          rows="2"
+          placeholder="Type Here ..."
+        >
+        </textarea>
+        <button class="btn reset" data-post>Create</button>
+      </form>
+    </div>
+    <div class="display-post-container">
+      <h2>Recent posts</h2>
+      <% for( let post of posts) { %>
+      <div class="post">
+        <div class="wrapper">
+          <div class="post-content">
+            <div class="post-text"><%= post.content %></div>
+            <div data-post-trim class="post-time-details xsml"><%= post.createdAt %></div>
+          </div>
+          <% if (post.user.id == locals.user.id) { %>
+          <div>
+            <a href="/posts/delete/<%= post.id %>" data-post-delete>x</a>
+          </div>
+          <% } %>
+        </div>
+        <form
+          action="/comments/create/<%= post.id %>"
+          method="post"
+          data-add-comment
+          class="w-100 flex flex-row justify-between"
+        >
+          <input
+            type="text "
+            name="content"
+            class="reset"
+            placeholder="Type comment here"
+          />
+          <button class="btn reset" data-comment type="submit">comment</button>
+        </form>
+        <!-- for loop for comment -->
+        <% for( let comment of post.comment ) { %>
+        <div class="comment">
+          <div class="wrapper">
+            <div class="text"><div><%= comment.content %></div></div>
+            <% if (comment.user == locals.user.id) { %>
+            <div>
+              <a href="/comments/delete/<%=comment.id %>" data-comment-delete
+                >x</a
+              >
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <% } %> <% } %>
+      </div>
+    </div>
+  </div>
+  <script src="/js/post.js"></script>
+</div>
