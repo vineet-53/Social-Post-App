@@ -6,9 +6,10 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-require('./configs/passport-local')
-const MongoStore = require('connect-mongo')(session);
-
+require("./configs/passport-local");
+const MongoStore = require("connect-mongo")(session);
+const flash = require("connect-flash");
+const flashMiddleWare = require("./controllers/flashMiddleWare");
 const app = express();
 const PORT = 8000;
 
@@ -23,16 +24,17 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 },
-    store : new MongoStore({
-      mongooseConnection : db,
-      autoRemove : 'disabled'
-    })
+    store: new MongoStore({
+      mongooseConnection: db,
+      autoRemove: "disabled",
+    }),
   })
 );
+app.use(flash());
+app.use(flashMiddleWare.setFlash);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setUserAuthenticated);
-
 app.set("view engine", "ejs");
 app.set("views", "./views");
 app.set("layout", "layouts/layout");

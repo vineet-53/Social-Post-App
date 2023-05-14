@@ -28,7 +28,9 @@
         <div class="wrapper">
           <div class="post-content">
             <div class="post-text"><%= post.content %></div>
-            <div data-post-trim class="post-time-details xsml"><%= post.createdAt %></div>
+            <div data-post-trim class="post-time-details xsml">
+              <%= post.createdAt %>
+            </div>
           </div>
           <% if (post.user.id == locals.user.id) { %>
           <div>

@@ -9,8 +9,10 @@
     <title>page</title>
   </head>
   <body>
-    <%- include('_header') %>
-    <%- body %>
-    <%- include('_footer') %>
+    <% if (flash.success && flash.success != 0) { %>
+    <h5 id="success"><%= flash.success %></h5>
+    <% } else if(flash.error && flash.error !=  0) { %>
+    <h5 id="error"><%= flash.error %></h5>
+    <% } %> <%- include('_header') %> <%- body %> <%- include('_footer') %>
   </body>
 </html>
