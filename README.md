@@ -2,17 +2,6 @@
 # Social-Post-App
 
 I implemented a Social Post App that allows users to create a post which other can view.
-## Installation
-
-Install my-project with npm
-
-```bash
-  git clone ....
-  npm install my-project
-  cd my-project
-  npm install 
-  npm run dev
-```
     
 ## Tech Stack Used
 - HTML 
